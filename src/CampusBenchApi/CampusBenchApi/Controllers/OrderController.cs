@@ -47,15 +47,22 @@ namespace CampusBenchApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, Order order)
         {
-           
+           if (order != order.Id_or) return BadRequest();
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
         // POST: api/Order
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> CreateOrder(Order order) 
         {
-           
+            order.OrderDate = DateTime.UtcNow;
+            _context
+                await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetOrder), new { id = order.Id_or };
+
         }
 
         // DELETE: api/Order/5
